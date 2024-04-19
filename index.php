@@ -93,10 +93,10 @@
   </aside>
   <!-- /.control-sidebar -->
 
-  <!-- Main Footer -->
+  <!-- Main Footer
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 sourcecodester Customize by<a href="https://www.plnsc.co.id/"> plnsc.co.id</a></strong>  All rights reserved
-  </footer>
+    <strong>Copyright &copy; Customize by<a href="https://www.plnsc.co.id/"> plnsc.co.id</a></strong>  All rights reserved
+  </footer>  -->
 </div>
 <!-- ./wrapper -->
 

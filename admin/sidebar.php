@@ -59,14 +59,22 @@
               </p>
             </a>
           </li>   -->
-          <li class="nav-item dropdown">
+          <!--<li class="nav-item dropdown">
             <a href="./index.php?page=attendance" class="nav-link nav-attendance">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>
                 Attendance
               </p>
-            </a>
+            </a> -->
           </li>  
+          <li class="nav-item dropdown">
+            <a href="./index.php?page=reports" class="nav-link nav-reports">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+                Reports
+              </p>
+            </a>
+          </li> 
           <li class="nav-item"">
             <a href="#" class="nav-link nav-edit_user">
               <i class="nav-icon fas fa-users"></i>

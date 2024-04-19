@@ -1,158 +1,188 @@
 <?php
-?>
-<div class="col-lg-12">
-	<div class="card">
-		<div class="card-body">
-			<form action="" id="manage_user">
-				<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-				<div class="row">
-					<div class="col-md-6 border-right">
-						<b class="text-muted">Data Akun Mahasiswa</b>
-						<div class="form-group">
-							<label for="" class="control-label">Nama Depan</label>
-							<input type="text" name="firstname" class="form-control form-control-sm" required
-								value="<?php echo isset($firstname) ? $firstname : '' ?>">
-						</div>
-						<div class="form-group">
-							<label for="" class="control-label">Nama Tengah</label>
-							<input type="text" name="middlename" class="form-control form-control-sm"
-								value="<?php echo isset($middlename) ? $middlename : '' ?>">
-						</div>
-						<div class="form-group">
-							<label for="" class="control-label">Nama Belakang</label>
-							<input type="text" name="lastname" class="form-control form-control-sm" required
-								value="<?php echo isset($lastname) ? $lastname : '' ?>">
-						</div>
-						<div class="form-group">
-							<label for="" class="control-label">Kontak Nomer</label>
-							<input type="text" name="contact" class="form-control form-control-sm" required
-								value="<?php echo isset($contact) ? $contact : '' ?>">
-						</div>
-						<div class="form-group">
-							<label class="control-label">Alamat</label>
-							<textarea name="address" id="" cols="30" rows="4" class="form-control"
-								required><?php echo isset($address) ? $address : '' ?></textarea>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="" class="control-label">Nama Kampus</label>
-							<input type="text" name="nama_kampus" class="form-control form-control-sm" required
-								value="<?php echo isset($nama_kampus) ? $nama_kampus : '' ?>">
-						</div>
-						<div class="form-group">
-							<label for="" class="control-label">Bidang/Divisi</label>
-							<input type="text" name="divisi" class="form-control form-control-sm" required
-								value="<?php echo isset($divisi) ? $divisi : '' ?>">
-						</div>
-						<b class="text-muted">System Credentials</b>
-						<?php if ($_SESSION['login_type'] == 1): ?>
-							<div class="form-group">
-								<label for="" class="control-label">User Role</label>
-								<select name="type" id="type" class="custom-select custom-select-sm">
-									<option value="2" <?php echo isset($type) && $type == 2 ? 'selected' : '' ?>>Registrar
-									</option>
-									<option value="1" <?php echo isset($type) && $type == 1 ? 'selected' : '' ?>>Admin
-									</option>
-								</select>
-							</div>
-						<?php else: ?>
-							<input type="hidden" name="type" value="3">
-						<?php endif; ?>
-						<div class="form-group">
-							<label class="control-label">Email</label>
-							<input type="email" class="form-control form-control-sm" name="email" required
-								value="<?php echo isset($email) ? $email : '' ?>">
-							<small id="#msg"></small>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Password</label>
-							<input type="password" class="form-control form-control-sm" name="password" <?php echo !isset($id) ? "required" : '' ?>>
-							<small><i>
-									<?php echo isset($id) ? "Leave this blank if you dont want to change you password" : '' ?>
-								</i></small>
-						</div>
-						<div class="form-group">
-							<label class="label control-label">Confirm Password</label>
-							<input type="password" class="form-control form-control-sm" name="cpass" <?php echo !isset($id) ? 'required' : '' ?>>
-							<small id="pass_match" data-status=''></small>
-						</div>
-					</div>
-				</div>
-				<hr>
-				<div class="col-lg-12 text-right justify-content-center d-flex">
-					<button class="btn btn-primary mr-2">Save</button>
-					<button class="btn btn-secondary" type="button"
-						onclick="location.href = 'index.php?page=user_list'">Cancel</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<style>
-	img#cimg {
-		max-height: 15vh;
-		/*max-width: 6vw;*/
-	}
-</style>
-<script>
-	$('[name="password"],[name="cpass"]').keyup(function () {
-		var pass = $('[name="password"]').val()
-		var cpass = $('[name="cpass"]').val()
-		if (cpass == '' || pass == '') {
-			$('#pass_match').attr('data-status', '')
-		} else {
-			if (cpass == pass) {
-				$('#pass_match').attr('data-status', '1').html('<i class="text-success">Password Matched.</i>')
-			} else {
-				$('#pass_match').attr('data-status', '2').html('<i class="text-danger">Password does not match.</i>')
-			}
-		}
-	})
-	function displayImg(input, _this) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function (e) {
-				$('#cimg').attr('src', e.target.result);
-			}
+include('db_connect.php');
 
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-	$('#manage_user').submit(function (e) {
-		e.preventDefault()
-		$('input').removeClass("border-danger")
-		start_load()
-		$('#msg').html('')
-		if ($('[name="password"]').val() != '' && $('[name="cpass"]').val() != '') {
-			if ($('#pass_match').attr('data-status') != 1) {
-				if ($("[name='password']").val() != '') {
-					$('[name="password"],[name="cpass"]').addClass("border-danger")
-					end_load()
-					return false;
-				}
-			}
-		}
-		$.ajax({
-			url: 'ajax.php?action=save_user',
-			data: new FormData($(this)[0]),
-			cache: false,
-			contentType: false,
-			processData: false,
-			method: 'POST',
-			type: 'POST',
-			success: function (resp) {
-				if (resp == 1) {
-					alert_toast('Data successfully saved.', "success");
-					setTimeout(function () {
-						location.replace('index.php?page=user_list')
-					}, 750)
-				} else if (resp == 2) {
-					$('#msg').html("<div class='alert alert-danger'>Email already exist.</div>");
-					$('[name="email"]').addClass("border-danger")
-					end_load()
-				}
-			}
-		})
-	})
-</script>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $nama_kampus = $_POST['nama_kampus'];
+    $divisi = $_POST['divisi'];
+    $contact = $_POST['contact'];
+    $address = $_POST['address'];
+    $email = $_POST['email'];
+    $password = md5($_POST['password']); // Encrypt the password using MD5
+    $type = $_POST['type'];
+
+    // Avatar upload handling
+    $target_dir = "../assets/uploads/";
+    $avatar = $target_dir . basename($_FILES["avatar"]["name"]);
+    $avatar_tmp = $_FILES["avatar"]["tmp_name"];
+    $avatar_name = basename($_FILES["avatar"]["name"]); // Get only the filename with extension
+
+    // Move uploaded file to target directory
+    if (move_uploaded_file($avatar_tmp, $avatar)) {
+        // Insert data into the database
+        $query = "INSERT INTO users (firstname, middlename, lastname, nama_kampus, divisi, contact, address, email, password, type, avatar, date_created) 
+                  VALUES ('$firstname', '$middlename', '$lastname', '$nama_kampus', '$divisi', '$contact', '$address', '$email', '$password', '$type', '$avatar_name', CURRENT_TIMESTAMP)";
+
+        if ($conn->query($query) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $query . "<br>" . $conn->error;
+        }
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+
+    $conn->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New User</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+    <!-- Custom JavaScript -->
+    <script>
+        $(document).ready(function () {
+            $('#manage_user').submit(function (e) {
+                e.preventDefault(); // Prevent form submission
+                var form = $(this);
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        // Show success popup
+                        $('#successModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            // Redirect to view_user.php when "View User" button is clicked
+            $('#viewUserBtn').click(function () {
+                window.location.href = 'index.php?page=user_list';
+            });
+
+            // Reload the page when "Submit Another" button is clicked
+            $('#submitAnotherBtn').click(function () {
+                location.reload();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Add New User</h2>
+        <form action="" id="manage_user" enctype="multipart/form-data" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- First Column -->
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="middlename">Middle Name</label>
+                        <input type="text" name="middlename" id="middlename" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_kampus">Campus Name</label>
+                        <input type="text" name="nama_kampus" id="nama_kampus" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="divisi">Division</label>
+                        <select name="divisi" id="divisi" class="form-control" required>
+                            <option value="Keuangan Akuntansi dan SDM">Keuangan Akuntansi dan SDM</option>
+                            <option value="Perencanaan dan Pengembangan Bisnis">Perencanaan dan Pengembangan Bisnis</option>
+                            <option value="Marketing Technical Services 1">Marketing Technical Services 1</option>
+                            <option value="Marketing Technical Services 2">Marketing Technical Services 2</option>
+                            <option value="Procurement 1">Procurement 1</option>
+                            <option value="Procurement 2">Procurement 2</option>
+                            <option value="Sekretariat Perusahaan">Sekretariat Perusahaan</option>
+                            <option value="Logistik">Logistik</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact Number</label>
+                        <input type="text" name="contact" id="contact" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Second Column -->
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address" cols="30" rows="4" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Avatar</label>
+                        <input type="file" name="avatar" id="avatar" class="form-control-file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">User Role</label>
+                        <select name="type" id="type" class="form-control">
+                            <option value="2">Registrar</option>
+                            <option value="1">Admin</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="checkmark-circle">
+                        <div class="background"></div>
+                        <div class="checkmark draw"></div>
+                    </div>
+                    <p class="mt-3">Form submitted successfully!</p>
+                    <!-- Buttons in the success modal -->
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="button" id="viewUserBtn" class="btn btn-secondary mr-2">View User</button>
+                        <button type="button" id="submitAnotherBtn" class="btn btn-secondary">Submit Another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
