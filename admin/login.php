@@ -11,7 +11,6 @@ include('./db_connect.php');
 
 	<title>Login | Admin </title>
 
-
 	<?php include('./header.php'); ?>
 	<?php
 	if (isset($_SESSION['login_id']))
@@ -35,11 +34,16 @@ include('./db_connect.php');
 		height: calc(100%);
 		display: flex;
 	}
-	
-	login-logo {
-		width: 50%;
-		height: calc(100%);
-		display: flex;
+
+	.login-logo {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.login-logo img {
+		max-width: 100%;
+		height: auto;
 	}
 </style>
 
@@ -51,9 +55,9 @@ include('./db_connect.php');
 					<div class="card-body">
 						<form id="login-form">
 							<div class="login-logo">
-      								<img src="../logoplnsc.png" alt="" width="415" height="120">
+								<img src="../logoplnsc2.png" alt="">
 								<h4 class="text-black text-center"><b>Internship Attendance - Administrator</b></h4>
-    							</div>
+							</div>
 							<div class="form-group">
 								<label for="email" class="control-label text-dark">Email</label>
 								<input type="text" id="email" name="email" class="form-control form-control-sm">

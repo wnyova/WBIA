@@ -29,8 +29,11 @@
       padding: 20px 0;
     }
 
-    .login-logo img{
-      width: 500px;
+    .login-logo img {
+      max-width: 100%; /* Added */
+      height: auto; /* Added */
+      display: block; /* Added */
+      margin: 0 auto; /* Added */
     }
 
     .login-card-body {
@@ -52,10 +55,10 @@
 <body>
   <div class="login-box">
     <div class="login-logo">
-      <img src="logoplnsc.png" alt="">
+      <img src="logoplnsc2.png" alt="">
     </div>
     <div class="login-text">
-      <h2>Absensi Magang PT PLN Suku Cadang</h2>
+      <h2>Internship Portal PT PLN Suku Cadang</h2>
     </div>
     <div class="card">
       <div class="card-body login-card-body">
@@ -76,22 +79,8 @@
               </div>
             </div>
           </div>
-          <!-- <div class="row">
-            <div class="col-8">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div> -->
-            <!-- /.col -->
-            <!-- <div class="col-4" style=""> -->
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-	      <center> <a href="/intern_plnsc/admin">Login as Admin</a> </center>
-            <!-- </div> -->
-            <!-- /.col -->
-          </div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          <center><a href="/intern_plnsc/admin">Login as Admin</a></center>
         </form>
       </div>
       <!-- /.login-card-body -->

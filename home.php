@@ -18,7 +18,7 @@
     <div class="info-box">
       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Mahasiswa magang</span>
+        <span class="info-box-text">Internship Students</span>
         <span class="info-box-number">
           <?php echo $conn->query("SELECT * FROM users where type = 2")->num_rows; ?>
         </span>

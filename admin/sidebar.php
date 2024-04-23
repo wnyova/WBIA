@@ -75,7 +75,23 @@
               </p>
             </a>
           </li> 
-          <li class="nav-item"">
+          <li class="nav-item dropdown">
+            <a href="./index.php?page=add_attendance" class="nav-link nav-edit">
+            <i class="nav-icon fas fa-clock"></i>
+              <p>
+                Add Attendance
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item dropdown">
+            <a href="./index.php?page=permit" class="nav-link nav-edit">
+            <i class="nav-icon fas fa-clock"></i>
+              <p>
+                Permit
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item">
             <a href="#" class="nav-link nav-edit_user">
               <i class="nav-icon fas fa-users"></i>
               <p>

@@ -1,6 +1,12 @@
 <?php
-include 'db_connect.php';
-$eid = isset($_GET['eid']) ? $_GET['eid'] : '';
+include 'admin/db_connect.php';
+// Start session to access session variables
+session_start();
+
+// Get the logged-in user's ID from the session
+$login_id = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : '';
+
+$eid = isset($_GET['eid']) ? $_GET['eid'] : $login_id;
 $user_fullname = ''; // Initialize variables
 $venue = ''; // Initialize variables
 $divisi = '';
@@ -69,7 +75,8 @@ while ($row = $public_holidays_result->fetch_assoc()) {
     $public_holidays[$row['day']] = $row['holiday_name'];
 }
 ?>
-
+<br>
+<br>
 <div class="col-lg-12">
     <div class="card card-outline card-info">
         <div class="card-header">
@@ -83,7 +90,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             <div class="row justify-content-center">
                 <label for="" class="mt-2">Name</label>
                 <div class="col-sm-4">
-                    <select name="eid" id="eid" class="custom-select select2">
+                    <select name="eid" id="eid" class="custom-select select2" disabled>
                         <option value=""></option>
                         <?php
                         // Fetch users from database and populate the select dropdown
@@ -127,69 +134,70 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             <?php if (empty($eid)): ?>
                 <center> Please select Name First.</center>
             <?php else: ?>
-                <table class="table table-condensed table-bordered table-hover" id="att-records">
-                    <thead>
-                        <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Date and Day</th>
-                            <th class="text-center">In</th>
-                            <th class="text-center">Out</th>
-                            <th class="text-center">Keterangan</th>
-                            <th class="text-center">Izin/Sakit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $i = 1;
-                        // Loop through each date in the selected month and year
-                        foreach ($attendance_records as $date => $records):
-                            $login_date = date('Y-m-d', strtotime($date));
-                            $login_day = date('l', strtotime($login_date));
-                            $login_datetime = $login_day . ' - ' . date('d F Y', strtotime($login_date));
-                            ?>
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered table-hover" id="att-records">
+                        <thead>
                             <tr>
-                                <td class="text-center">
-                                    <?php echo $i++ ?>
-                                </td>
-                                <td class="">
-                                    <?php echo $login_datetime ?>
-                                </td>
-                                <td class="text-center">
-                                    <?php echo !empty($records) ? $records[0]['login_time_formatted'] : '-' ?>
-                                </td>
-                                <td class="text-center">
-                                    <?php echo !empty($records) ? $records[0]['logout_time_formatted'] : '-' ?>
-                                </td>
-                                <td class="text-center">
-                                    <?php
-                                    $day_of_month = date('j', strtotime($login_date));
-                                    echo isset($public_holidays[$day_of_month]) ? $public_holidays[$day_of_month] : '-';
-                                    ?>
-                                </td>
-                                <td class="text-center">
-                                    <?php
-                                    // Check if the request is approved for this date
-                                    $approval_query = $conn->prepare("SELECT request_status FROM izin_sakit_requests WHERE user_id = ? AND request_date = ?");
-                                    $approval_query->bind_param("is", $eid, $login_date);
-                                    $approval_query->execute();
-                                    $approval_result = $approval_query->get_result();
-                                    if ($approval_result->num_rows > 0) {
-                                        $row = $approval_result->fetch_assoc();
-                                        if ($row['request_status'] === 'Approved') {
-                                            echo '<span>&#10004;</span>'; // Checkmark symbol
-                                        }
-                                    }
-                                    ?>
-                                </td>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Date and Day</th>
+                                <th class="text-center">In</th>
+                                <th class="text-center">Out</th>
+                                <th class="text-center">Information</th>
+                                <th class="text-center">Permit/Sick</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $i = 1;
+                            // Loop through each date in the selected month and year
+                            foreach ($attendance_records as $date => $records):
+                                $login_date = date('Y-m-d', strtotime($date));
+                                $login_day = date('l', strtotime($login_date));
+                                $login_datetime = $login_day . ' - ' . date('d F Y', strtotime($login_date));
+                                ?>
+                                <tr>
+                                    <td class="text-center">
+                                        <?php echo $i++ ?>
+                                    </td>
+                                    <td class="">
+                                        <?php echo $login_datetime ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo !empty($records) ? $records[0]['login_time_formatted'] : '-' ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo !empty($records) ? $records[0]['logout_time_formatted'] : '-' ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php
+                                        $day_of_month = date('j', strtotime($login_date));
+                                        echo isset($public_holidays[$day_of_month]) ? $public_holidays[$day_of_month] : '-';
+                                        ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php
+                                        // Check if the request is approved for this date
+                                        $approval_query = $conn->prepare("SELECT request_status FROM izin_sakit_requests WHERE user_id = ? AND request_date = ?");
+                                        $approval_query->bind_param("is", $eid, $login_date);
+                                        $approval_query->execute();
+                                        $approval_result = $approval_query->get_result();
+                                        if ($approval_result->num_rows > 0) {
+                                            $row = $approval_result->fetch_assoc();
+                                            if ($row['request_status'] === 'Approved') {
+                                                echo '<span>&#10004;</span>'; // Checkmark symbol
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 </div>
-
 
 <noscript>
     <style>
@@ -250,15 +258,15 @@ while ($row = $public_holidays_result->fetch_assoc()) {
 
     </style>
     <div class="headers">
-        <img src="../logoplnsc2.png" alt="Logo">
+        <img src="logoplnsc2.png" alt="Logo">
         <h1>Internship Attendance
         <br><b id="periode"><?php echo date('F Y', mktime(0, 0, 0, $selectedMonth, 1)); ?></b></h1>
     </div>
     <div class="info">
-        <p>Nama Mahasiswa&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo $user_fullname ?></p>
-        <p>Asal Kampus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo isset($venue) ? ucwords($venue) : '' ?></p>
-        <p>Bidang/Divisi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo isset($divisi) ? ucwords($divisi) : '' ?></p>
-        <p>Total Kehadiran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $total_records; ?></p>
+        <p>Student Name&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo $user_fullname ?></p>
+        <p>University&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo isset($venue) ? ucwords($venue) : '' ?></p>
+        <p>Division&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo isset($divisi) ? ucwords($divisi) : '' ?></p>
+        <p>Total Attendance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $total_records; ?></p>
     </div>
 </noscript>
 <script>
