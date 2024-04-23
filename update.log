@@ -1,0 +1,67 @@
+Array
+(
+    [update_id] => 470322197
+    [message] => Array
+        (
+            [message_id] => 86
+            [from] => Array
+                (
+                    [id] => 1525659903
+                    [is_bot] => 
+                    [first_name] => Yova
+                    [username] => wnyova
+                    [language_code] => en
+                )
+
+            [chat] => Array
+                (
+                    [id] => 1525659903
+                    [first_name] => Yova
+                    [username] => wnyova
+                    [type] => private
+                )
+
+            [date] => 1713846109
+            [text] => /izin
+            [entities] => Array
+                (
+                    [0] => Array
+                        (
+                            [offset] => 0
+                            [length] => 5
+                            [type] => bot_command
+                        )
+
+                )
+
+        )
+
+)
+Array
+(
+    [update_id] => 470322198
+    [message] => Array
+        (
+            [message_id] => 88
+            [from] => Array
+                (
+                    [id] => 1525659903
+                    [is_bot] => 
+                    [first_name] => Yova
+                    [username] => wnyova
+                    [language_code] => en
+                )
+
+            [chat] => Array
+                (
+                    [id] => 1525659903
+                    [first_name] => Yova
+                    [username] => wnyova
+                    [type] => private
+                )
+
+            [date] => 1713846114
+            [text] => izin ke kampus
+        )
+
+)
