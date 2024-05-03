@@ -16,7 +16,7 @@ if (!empty($eid)) {
 <div class="col-lg-12">
     <div class="card card-outline card-info">
         <div class="card-header">
-            <b>Attendance</b>
+            <b>Absen</b>
             <div class="card-tools">
                 <button class="btn btn-success btn-flat" type="button" id="print_record">
                     <i class="fa fa-print"></i> Print</button>
@@ -50,9 +50,9 @@ if (!empty($eid)) {
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="">Name</th>
-                            <th class="">Login Time</th>
-                            <th class="">Logout Time</th>
+                            <th class="">Nama</th>
+                            <th class="">Jam Masuk</th>
+                            <th class="">Jam Pulang</th>
                         </tr>
                     </thead>
                     <tbody>

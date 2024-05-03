@@ -39,11 +39,11 @@ foreach($event as $k => $v){
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Name</th>
-									<th>Gender</th>
+									<th>Nama</th>
+									<th>Jenis Kelamin</th>
 									<th>Email</th>
-									<th>Attendance</th>
-									<th>Action</th>
+									<th>Absensi</th>
+									<th>Tindakan</th>
 								</tr>
 							</thead>
 							<tbody>

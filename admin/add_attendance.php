@@ -15,7 +15,7 @@ while ($row = $users_query->fetch_assoc()) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Add Attendance</title>
+    <title>Tambahkan Absen</title>
 
     <?php include('./header.php'); ?>
 </head>
@@ -27,32 +27,32 @@ while ($row = $users_query->fetch_assoc()) {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <b>Add Attendance</b>
+                        <b>Tambahkan Absen</b>
                     </div>
                     <div class="card-body">
                         <form id="edit-attendance-form">
                             <div class="form-group">
-                                <label for="user_id">Select User:</label>
+                                <label for="user_id">Pilih Pengguna:</label>
                                 <select name="user_id" id="user_id" class="form-control">
-                                    <option value="">Select User</option>
+                                    <option value="">Pilih Pengguna</option>
                                     <?php foreach ($users as $user_id => $fullname): ?>
                                         <option value="<?php echo $user_id; ?>"><?php echo $fullname; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="attendance_date">Select Date:</label>
+                                <label for="attendance_date">Pilih Tanggal:</label>
                                 <input type="date" id="attendance_date" name="attendance_date" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="login_time">In Time:</label>
+                                <label for="login_time">Jam Masuk:</label>
                                 <input type="time" id="login_time" name="login_time" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="logout_time">Out Time:</label>
+                                <label for="logout_time">Jam Pulang:</label>
                                 <input type="time" id="logout_time" name="logout_time" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                            <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
                         </form>
                     </div>
                 </div>

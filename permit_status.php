@@ -2,8 +2,7 @@
 <html>
 <head>
     <br>
-    <br>
-    <title>Requests</title>
+    <title>Daftar Izin</title>
     <style>
         table {
             border-collapse: collapse;
@@ -34,15 +33,16 @@
     </style>
 </head>
 <body>
-    <h2>Requests</h2>
+    <h2>Perizinan</h2>
     <div style="overflow-x: auto;">
         <table>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Request Date</th>
-                <th>Request Type</th>
-                <th>Request Comment</th>
+                <th>Nama</th>
+                <th>Tanggal Perizinan</th>
+                <th>Tipe Perizinan</th>
+                <th>Keterangan Perizinan</th>
+                <th>Bukti</th>
                 <th>Status</th>
             </tr>
             <?php
@@ -59,7 +59,7 @@
 
                 // Fetch requests from the database with user details
                 $sql = "SELECT izin_sakit_requests.id, CONCAT(users.firstname, ' ', users.middlename, ' ', users.lastname) AS user_name, 
-                        izin_sakit_requests.request_date, izin_sakit_requests.izin_sakit_type, izin_sakit_requests.request_comment, izin_sakit_requests.request_status
+                        izin_sakit_requests.request_date, izin_sakit_requests.izin_sakit_type, izin_sakit_requests.request_comment, izin_sakit_requests.request_proof, izin_sakit_requests.request_status
                         FROM izin_sakit_requests 
                         INNER JOIN users ON izin_sakit_requests.user_id = users.id
                         WHERE izin_sakit_requests.request_status IN ('Pending', 'Approved') AND izin_sakit_requests.user_id = $user_id";
@@ -82,14 +82,15 @@
                         echo "<td>".$row["request_date"]."</td>";
                         echo "<td>".$request_type."</td>"; // Display modified request type
                         echo "<td>".$row["request_comment"]."</td>";
+                        echo "<td><a href='".htmlspecialchars($row["request_proof"], ENT_QUOTES, 'UTF-8')."' target='_blank'>Click Here</a></td>"; // Display proof as hyperlink
                         echo "<td>".$row["request_status"]."</td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='6'>No requests</td></tr>";
+                    echo "<tr><td colspan='7'>No requests</td></tr>";
                 }
             } else {
-                echo "<tr><td colspan='6'>User not logged in</td></tr>";
+                echo "<tr><td colspan='7'>User not logged in</td></tr>";
             }
             ?>
         </table>
