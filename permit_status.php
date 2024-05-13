@@ -37,7 +37,7 @@
     <div style="overflow-x: auto;">
         <table>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Nama</th>
                 <th>Tanggal Perizinan</th>
                 <th>Tipe Perizinan</th>
@@ -82,7 +82,7 @@
                         echo "<td>".$row["request_date"]."</td>";
                         echo "<td>".$request_type."</td>"; // Display modified request type
                         echo "<td>".$row["request_comment"]."</td>";
-                        echo "<td><a href='".htmlspecialchars($row["request_proof"], ENT_QUOTES, 'UTF-8')."' target='_blank'>Click Here</a></td>"; // Display proof as hyperlink
+                        echo "<td><a href='".htmlspecialchars($row["request_proof"], ENT_QUOTES, 'UTF-8')."' target='_blank'>Klik Disini</a></td>"; // Display proof as hyperlink
                         echo "<td>".$row["request_status"]."</td>";
                         echo "</tr>";
                     }

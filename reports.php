@@ -82,7 +82,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             <b>Absensi</b>
             <div class="card-tools">
                 <button class="btn btn-success btn-flat" type="button" id="print_record">
-                    <i class="fa fa-print"></i> Print</button>
+                    <i class="fa fa-print"></i> Cetak</button>
             </div>
         </div>
         <div class="card-body">
@@ -349,6 +349,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             // Create the new table element
             var newTable = $('<br><br><table style="width:25%; border: 1px solid black;"></table>');
 
+            
             // Create the first row with cells for headings
             var newRow1 = $('<tr></tr>');
             newRow1.append('<th style="text-align: left;">Total Kehadiran : <?php echo $total_records; ?></th>');

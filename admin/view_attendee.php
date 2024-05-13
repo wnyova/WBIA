@@ -19,13 +19,13 @@ foreach($qry as $k => $v){
       <div class="card-footer">
         <div class="container-fluid">
         	<dl>
-            <dt>Attendee of</dt>
+            <dt>Anggota dari</dt>
             <dd><?php echo ucwords($event) ?></dd>
-            <dt>Gender</dt>
+            <dt>Jenis Kelamin</dt>
             <dd><?php echo $gender ?></dd>
-            <dt>Contact No.</dt>
+            <dt>No Kontak.</dt>
             <dd><?php echo $contact ?></dd>
-        		<dt>Address</dt>
+        		<dt>Alamat</dt>
         		<dd><?php echo $address ?></dd>
         	</dl>
         </div>

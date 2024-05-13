@@ -4,7 +4,7 @@
     <div class="card card-outline card-success">
         <div class="card-header">
             <div class="card-tools">
-                <a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_user"><i class="fa fa-plus"></i> Add New User</a>
+                <a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_user"><i class="fa fa-plus"></i> Tambahkan Pengguna Baru</a>
             </div>
         </div>
         <div class="card-body">
@@ -12,11 +12,11 @@
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th>Name</th>
-                        <th>Contact #</th>
+                        <th>Nama</th>
+                        <th>No Kontak </th>
                         <th>Role</th>
                         <th>Email</th>
-                        <th>Action</th>
+                        <th>Tindakan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,7 +34,7 @@
                             <td><b><?php echo $row['email'] ?></b></td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    Action
+                                    Tindakan
                                 </button>
                                 <div class="dropdown-menu" style="">
                                     <a class="dropdown-item view_user" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">View</a>

@@ -8,7 +8,7 @@
       </li>
     <?php endif; ?>
       <li>
-        <a class="nav-link text-white"  href="./" role="button"> <large><b>Abensi Intern PLN Suku Cadang</b></large></a>
+        <a class="nav-link text-white"  href="./" role="button"> <large><b>Intern Portal PLN Suku Cadang</b></large></a>
       </li>
     </ul>
 

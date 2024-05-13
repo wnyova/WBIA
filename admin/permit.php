@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pending Requests</title>
+    <title>Pengajuan Tertunda</title>
     <style>
         table {
             border-collapse: collapse;
@@ -30,16 +30,16 @@
     </style>
 </head>
 <body>
-    <h2>Pending Requests</h2>
+    <h2>Pengajuan Tertunda</h2>
     <table>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Request Date</th>
-            <th>Request Type</th>
-            <th>Request Comment</th>
-            <th>Proof</th>
-            <th>Action</th>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Tanggal Pengajuan</th>
+            <th>Tipe Pengajuan</th>
+            <th>Komentar Pengajuan/th>
+            <th>Bukti</th>
+            <th>Tindakan</th>
         </tr>
         <?php
         // Include db_connect.php file to establish database connection
@@ -62,8 +62,8 @@
                 echo "<td>".$row["request_date"]."</td>";
                 echo "<td>".$row["izin_sakit_type"]."</td>";
                 echo "<td>".$row["request_comment"]."</td>";
-                echo "<td><a href='".$row["request_proof"]."' target='_blank'>Click Here</a></td>";
-                echo "<td><button class='approve-btn' onclick='approveRequest(".$row["id"].")'>Approve</button></td>";
+                echo "<td><a href='".$row["request_proof"]."' target='_blank'>Klik Disini</a></td>";
+                echo "<td><button class='approve-btn' onclick='approveRequest(".$row["id"].")'>Disetujui</button></td>";
                 echo "</tr>";
             }
         } else {

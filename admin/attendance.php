@@ -39,10 +39,10 @@ if (!empty($eid)) {
 <div class="col-lg-12">
     <div class="card card-outline card-info">
         <div class="card-header">
-            <b>Attendance</b>
+            <b>Absensi</b>
             <div class="card-tools">
                 <button class="btn btn-success btn-flat" type="button" id="print_record">
-                    <i class="fa fa-print"></i> Print</button>
+                    <i class="fa fa-print"></i> Cetak</button>
             </div>
         </div>
         <div class="card-body">
@@ -67,7 +67,7 @@ if (!empty($eid)) {
             </div>
             <hr>
             <?php if (empty($eid)): ?>
-                <center> Please select event First.</center>
+                <center> Silahkan Pilih Nama Terlebih Dahulu.</center>
             <?php else: ?>
                 <table class="table table-condensed table-bordered table-hover" id="att-records">
                     <thead>

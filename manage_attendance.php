@@ -152,7 +152,7 @@ foreach($event as $k => $v){
 			data:{id:$id},
 			success:function(resp){
 				if(resp==1){
-					alert_toast("Data successfully deleted",'success')
+					alert_toast("Data Berhasil Dihapus",'success')
 					setTimeout(function(){
 						location.reload()
 					},1500)

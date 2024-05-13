@@ -18,7 +18,7 @@
 <script>
 	$(document).ready(function(){
 	  $('.select2').select2({
-	    placeholder:"Please select here",
+	    placeholder:"Silakan pilih di sini",
 	    width: "100%"
 	  });
   })

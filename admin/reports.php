@@ -59,6 +59,7 @@ if (!empty($eid)) {
             $total_records++;
         }
     }
+
 }
 
 // Fetch public holidays for the selected month and year
@@ -70,6 +71,23 @@ $public_holidays = array();
 while ($row = $public_holidays_result->fetch_assoc()) {
     $public_holidays[$row['day']] = $row['holiday_name'];
 }
+
+function getWorkdays($month, $year, $public_holidays) {
+    $workdays = 0;
+    $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    for ($day = 1; $day <= $total_days; $day++) {
+        $current_date = strtotime("$year-$month-$day");
+        $current_day = date('N', $current_date);
+        // Check if it's not Saturday (6) or Sunday (7) and not a public holiday
+        if ($current_day >= 1 && $current_day <= 5 && !isset($public_holidays[$day])) {
+            $workdays++;
+        }
+    }
+    return $workdays;
+}
+
+// Calculate workdays for the selected month and year, excluding public holidays
+$work_day = getWorkdays($selectedMonth, $selectedYear, $public_holidays);
 ?>
 
 <div class="col-lg-12">
@@ -78,7 +96,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             <b>Absensi</b>
             <div class="card-tools">
                 <button class="btn btn-success btn-flat" type="button" id="print_record">
-                    <i class="fa fa-print"></i> Print</button>
+                    <i class="fa fa-print"></i> Cetak</button>
             </div>
         </div>
         <div class="card-body">
@@ -104,7 +122,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
                 <label for="month" class="mt-2 ml-3">Bulan:</label>
                 <div class="col-sm-2">
                     <select name="month" id="month" class="custom-select select2">
-                        <option value="">All Months</option>
+                        <option value="">Semua Bulan</option>
                         <?php foreach (range(1, 12) as $monthNumber): ?>
                             <option value="<?php echo $monthNumber; ?>" <?php echo $selectedMonth == $monthNumber ? 'selected' : ''; ?>>
                                 <?php echo strftime('%B', mktime(0, 0, 0, $monthNumber, 1)); ?>
@@ -115,7 +133,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
                 <label for="year" class="mt-2 ml-3">Tahun:</label>
                 <div class="col-sm-2">
                     <select name="year" id="year" class="custom-select select2">
-                        <option value="">All Years</option>
+                        <option value="">Semua Tahun</option>
                         <?php
                         $currentYear = date("Y");
                         for ($i = $currentYear; $i >= 2024; $i--) {
@@ -127,15 +145,17 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             </div>
             <hr>
             <?php if (empty($eid)): ?>
-                <center> Please select Name First.</center>
+                <center> Silahkan Pilih Nama Terlebih Dahulu.</center>
             <?php else: ?>
-                <table class="table table-condensed table-bordered table-hover" id="att-records">
+                <div class="card-body">
+    <div class="table-responsive">
+                 <table class="table table-condensed table-bordered table-hover" id="att-records">
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
                             <th class="text-center">Hari dan Tanggal</th>
-                            <th class="text-center">In</th>
-                            <th class="text-center">Out</th>
+                            <th class="text-center">Masuk</th>
+                            <th class="text-center">Pulang</th>
                             <th class="text-center">Keterangan</th>
                             <th class="text-center">Izin/Sakit</th>
                         </tr>
@@ -361,6 +381,9 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             // Create the new table element
             var newTable = $('<br><br><table style="width:25%; border: 1px solid black;"></table>');
 
+            var totalweek = $('<tr></tr>');
+            totalweek.append('<th style="text-align: left;">Total Hari Kerja : <?php echo $work_day; ?></th>');
+
             // Create the first row with cells for headings
             var newRow1 = $('<tr></tr>');
             newRow1.append('<th style="text-align: left;">Total Kehadiran : <?php echo $total_records; ?></th>');
@@ -370,6 +393,7 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             newRow2.append('<td style="text-align: left;">Paraf Tim SDM : </td>');
 
             // Append rows to the new table
+            newTable.append(totalweek);
             newTable.append(newRow1);
             newTable.append(newRow2);
 
@@ -395,8 +419,6 @@ while ($row = $public_holidays_result->fetch_assoc()) {
 
             // Append the table to the document
             ns.append(table);
-
-
 
             var nw = window.open('', '_blank', 'width=900,height=600');
             nw.document.write('<!DOCTYPE html><html><head><title>Print</title><link rel="stylesheet" type="text/css" href="print.css" media="print"></head><body>');

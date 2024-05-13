@@ -56,7 +56,7 @@ include('./db_connect.php');
 						<form id="login-form">
 							<div class="login-logo">
 								<img src="../logoplnsc2.png" alt="">
-								<h4 class="text-black text-center"><b>Internship Attendance - Administrator</b></h4>
+								<h4 class="text-black text-center"><b>Absensi Magang - Administrator</b></h4>
 							</div>
 							<div class="form-group">
 								<label for="email" class="control-label text-dark">Email</label>

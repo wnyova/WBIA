@@ -7,7 +7,7 @@
     <div class="info-box">
       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Mahasiswa magang</span>
+        <span class="info-box-text">Mahasiswa Magang</span>
         <span class="info-box-number">
           <?php echo $conn->query("SELECT * FROM users where type = 2")->num_rows; ?>
         </span>
@@ -126,7 +126,7 @@
 <div class="col-12">
   <div class="card">
     <div class="card-body">
-      Welcome <?php echo $_SESSION['login_name'] ?>!
+      Selamat Datang <?php echo $_SESSION['login_name'] ?>!
     </div>
   </div>
 </div>
@@ -140,7 +140,7 @@ function showDetails(value, type) {
     data: { value: value, type: type },
     success: function(response) {
       $('#userDetailsContent').html(response);
-      $('#userDetailsModal').modal('show');
+      $('#userDetailsModal').modal('Tampilkan');
     }
   });
 }

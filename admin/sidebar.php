@@ -12,9 +12,9 @@
 
       </a>
       <div class="dropdown-menu" style="">
-        <a class="dropdown-item manage_account" href="javascript:void(0)" data-id="<?php echo $_SESSION['login_id'] ?>">Manage Account</a>
+        <a class="dropdown-item manage_account" href="javascript:void(0)" data-id="<?php echo $_SESSION['login_id'] ?>">Kelola Akun</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="ajax.php?action=logout">Logout</a>
+        <a class="dropdown-item" href="ajax.php?action=logout">Keluar</a>
       </div>
     </div>
     <div class="sidebar">
@@ -71,7 +71,7 @@
             <a href="./index.php?page=reports" class="nav-link nav-reports">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>
-                Reports
+                Laporan
               </p>
             </a>
           </li> 
@@ -79,7 +79,7 @@
             <a href="./index.php?page=add_attendance" class="nav-link nav-edit">
             <i class="nav-icon fas fa-clock"></i>
               <p>
-                Add Attendance
+                Tambahkan Absensi
               </p>
             </a>
           </li> 
@@ -87,7 +87,7 @@
             <a href="./index.php?page=permit" class="nav-link nav-edit">
             <i class="nav-icon fas fa-clock"></i>
               <p>
-                Permit
+                Izin
               </p>
             </a>
           </li> 
@@ -95,7 +95,7 @@
             <a href="#" class="nav-link nav-edit_user">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Users
+                Pengguna
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -103,13 +103,13 @@
               <li class="nav-item">
                 <a href="./index.php?page=new_user" class="nav-link nav-new_user tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Add New</p>
+                  <p>Tambah Baru</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./index.php?page=user_list" class="nav-link nav-user_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
+                  <p>Daftar Pengguna</p>
                 </a>
               </li>
             </ul>
