@@ -7,7 +7,7 @@
   ob_start();
   $title = isset($_GET['page']) ? ucwords(str_replace("_", ' ', $_GET['page'])) : "Home";
   ?>
-  <title><?php echo $title ?> | Event Registration and Attendance System</title>
+  <title><?php echo $title ?> | Pendaftaran Acara dan Sistem Absensi</title>
   <?php ob_end_flush() ?>
 
   <!-- Google Font: Source Sans Pro -->

@@ -1,4 +1,6 @@
 <?php
+setlocale(LC_TIME, 'id_ID.UTF-8');
+
 include 'db_connect.php';
 $eid = isset($_GET['eid']) ? $_GET['eid'] : '';
 $user_fullname = ''; // Initialize variables
@@ -38,10 +40,10 @@ if (!empty($eid)) {
         $stmt = $conn->prepare("SELECT ua.*, CONCAT(u.firstname, ' ', u.lastname) AS name, e.event_datetime, e.event, e.venue,
                                 DATE_FORMAT(ua.login_time, '%H:%i:%s') AS login_time_formatted,
                                 DATE_FORMAT(ua.logout_time, '%H:%i:%s') AS logout_time_formatted
-                            FROM user_attendance ua 
-                            LEFT JOIN events e ON ua.event_id = e.id 
-                            LEFT JOIN users u ON ua.user_id = u.id 
-                            WHERE u.id = ? 
+                                FROM user_attendance ua 
+                                LEFT JOIN events e ON ua.event_id = e.id 
+                                LEFT JOIN users u ON ua.user_id = u.id 
+                                WHERE u.id = ? 
                                 AND DATE(ua.login_time) = ?");
         $stmt->bind_param("is", $eid, $current_date);
 
@@ -57,6 +59,7 @@ if (!empty($eid)) {
             $total_records++;
         }
     }
+
 }
 
 // Fetch public holidays for the selected month and year
@@ -68,20 +71,37 @@ $public_holidays = array();
 while ($row = $public_holidays_result->fetch_assoc()) {
     $public_holidays[$row['day']] = $row['holiday_name'];
 }
+
+function getWorkdays($month, $year, $public_holidays) {
+    $workdays = 0;
+    $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    for ($day = 1; $day <= $total_days; $day++) {
+        $current_date = strtotime("$year-$month-$day");
+        $current_day = date('N', $current_date);
+        // Check if it's not Saturday (6) or Sunday (7) and not a public holiday
+        if ($current_day >= 1 && $current_day <= 5 && !isset($public_holidays[$day])) {
+            $workdays++;
+        }
+    }
+    return $workdays;
+}
+
+// Calculate workdays for the selected month and year, excluding public holidays
+$work_day = getWorkdays($selectedMonth, $selectedYear, $public_holidays);
 ?>
 
 <div class="col-lg-12">
     <div class="card card-outline card-info">
         <div class="card-header">
-            <b>Attendance</b>
+            <b>Absensi</b>
             <div class="card-tools">
                 <button class="btn btn-success btn-flat" type="button" id="print_record">
-                    <i class="fa fa-print"></i> Print</button>
+                    <i class="fa fa-print"></i> Cetak</button>
             </div>
         </div>
         <div class="card-body">
             <div class="row justify-content-center">
-                <label for="" class="mt-2">Name</label>
+                <label for="" class="mt-2">Nama</label>
                 <div class="col-sm-4">
                     <select name="eid" id="eid" class="custom-select select2">
                         <option value=""></option>
@@ -99,21 +119,21 @@ while ($row = $public_holidays_result->fetch_assoc()) {
                         <?php endwhile; ?>
                     </select>
                 </div>
-                <label for="month" class="mt-2 ml-3">Select Month:</label>
+                <label for="month" class="mt-2 ml-3">Bulan:</label>
                 <div class="col-sm-2">
                     <select name="month" id="month" class="custom-select select2">
-                        <option value="">All Months</option>
+                        <option value="">Semua Bulan</option>
                         <?php foreach (range(1, 12) as $monthNumber): ?>
                             <option value="<?php echo $monthNumber; ?>" <?php echo $selectedMonth == $monthNumber ? 'selected' : ''; ?>>
-                                <?php echo date('F', mktime(0, 0, 0, $monthNumber, 1)); ?>
+                                <?php echo strftime('%B', mktime(0, 0, 0, $monthNumber, 1)); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <label for="year" class="mt-2 ml-3">Select Year:</label>
+                <label for="year" class="mt-2 ml-3">Tahun:</label>
                 <div class="col-sm-2">
                     <select name="year" id="year" class="custom-select select2">
-                        <option value="">All Years</option>
+                        <option value="">Semua Tahun</option>
                         <?php
                         $currentYear = date("Y");
                         for ($i = $currentYear; $i >= 2024; $i--) {
@@ -125,15 +145,17 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             </div>
             <hr>
             <?php if (empty($eid)): ?>
-                <center> Please select Name First.</center>
+                <center> Silahkan Pilih Nama Terlebih Dahulu.</center>
             <?php else: ?>
-                <table class="table table-condensed table-bordered table-hover" id="att-records">
+                <div class="card-body">
+    <div class="table-responsive">
+                 <table class="table table-condensed table-bordered table-hover" id="att-records">
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
-                            <th class="text-center">Date and Day</th>
-                            <th class="text-center">In</th>
-                            <th class="text-center">Out</th>
+                            <th class="text-center">Hari dan Tanggal</th>
+                            <th class="text-center">Masuk</th>
+                            <th class="text-center">Pulang</th>
                             <th class="text-center">Keterangan</th>
                             <th class="text-center">Izin/Sakit</th>
                         </tr>
@@ -144,14 +166,22 @@ while ($row = $public_holidays_result->fetch_assoc()) {
                         // Loop through each date in the selected month and year
                         foreach ($attendance_records as $date => $records):
                             $login_date = date('Y-m-d', strtotime($date));
-                            $login_day = date('l', strtotime($login_date));
-                            $login_datetime = $login_day . ' - ' . date('d F Y', strtotime($login_date));
-                            ?>
-                            <tr>
+                            $login_day = strftime('%A', strtotime($login_date));
+                            $login_datetime = $login_day . ' - ' . strftime('%d %B %Y', strtotime($login_date));
+                            $day_of_week = date('N', strtotime($login_date)); // Get the day of the week (1 for Monday, 2 for Tuesday, etc.)
+                            $row_class = ($day_of_week == 6 || $day_of_week == 7) ? 'weekend' : ''; // Check if it's Saturday (6) or Sunday (7)
+                            
+                            // Check if the "keterangan" column has a value corresponding to a public holiday
+                            $day_of_month = date('j', strtotime($login_date));
+                            if (isset($public_holidays[$day_of_month])) {
+                                $row_class .= ' keterangan-filled'; // Add the class for rows with public holiday values in "keterangan" column
+                            }
+                        ?>
+                            <tr class="<?php echo $row_class; ?>">
                                 <td class="text-center">
                                     <?php echo $i++ ?>
                                 </td>
-                                <td class="">
+                                <td class="text-center">
                                     <?php echo $login_datetime ?>
                                 </td>
                                 <td class="text-center">
@@ -162,7 +192,6 @@ while ($row = $public_holidays_result->fetch_assoc()) {
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    $day_of_month = date('j', strtotime($login_date));
                                     echo isset($public_holidays[$day_of_month]) ? $public_holidays[$day_of_month] : '-';
                                     ?>
                                 </td>
@@ -194,7 +223,8 @@ while ($row = $public_holidays_result->fetch_assoc()) {
 <noscript>
     <style>
         table#att-records {
-            width: 100%;
+            width: 80%;
+            align-content: left;
             border-collapse: collapse;
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -202,7 +232,8 @@ while ($row = $public_holidays_result->fetch_assoc()) {
         table#att-records td,
         table#att-records th {
             border: 1px solid;
-            padding: 8px;
+            padding: 1px;
+            font-size: 10px;
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -248,29 +279,82 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             font-family: Arial, Helvetica, sans-serif;
         }
 
+        .datadiri {
+            padding-top: 2px 0;
+            padding: 1px 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .datadiri p {
+            margin-bottom: 0.01px;
+        }
+
+        .datadiri strong {
+            display: inline-block;
+            width: 120px; /* Adjust width as needed */
+            font-weight: normal;
+            text-align: left;
+            margin-right: 1px;
+        }
+
+        .weekend {
+            background-color: #a7b1e7; /* Grey background color for weekends */
+        }
+
+        tr.keterangan-filled {
+            background-color: #a7b1e7; /* Light red background color */
+        }
     </style>
+
+    <!-- CSS for printing -->
+    <style>
+        @media print {
+            table#att-records {
+                margin-left: auto; /* Remove margins */
+                margin-right: auto; /* Align table to the left */
+            }
+        }
+    </style>
+
     <div class="headers">
         <img src="../logoplnsc2.png" alt="Logo">
-        <h1>Internship Attendance
-        <br><b id="periode"><?php echo date('F Y', mktime(0, 0, 0, $selectedMonth, 1)); ?></b></h1>
+        <h1>ABSENSI MAGANG
+            <br><b id="periode"><?php echo strtoupper(strftime('%B %Y', mktime(0, 0, 0, $selectedMonth, 1, $selectedYear))); ?></b></h1>
     </div>
-    <div class="info">
-        <p>Nama Mahasiswa&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo $user_fullname ?></p>
-        <p>Asal Kampus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo isset($venue) ? ucwords($venue) : '' ?></p>
-        <p>Bidang/Divisi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<?php echo isset($divisi) ? ucwords($divisi) : '' ?></p>
-        <p>Total Kehadiran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $total_records; ?></p>
+    <div class="datadiri">
+        <p><strong>Nama</strong>: <?php echo $user_fullname ?></p>
+        <p><strong>Universitas</strong>: <?php echo isset($venue) ? ucwords($venue) : '' ?></p>
+        <p><strong>Divisi</strong>: <?php echo isset($divisi) ? ucwords($divisi) : '' ?></p><br><br>
     </div>
 </noscript>
 <script>
     $(document).ready(function () {
-        // Update Periode text when month dropdown changes
-        $('#month').change(function () {
-            var selectedMonth = $(this).val();
-            var selectedMonthName = $('#month option:selected').text(); // Get the text of the selected option
-            if (selectedMonth) {
-                $('#periode').text('Periode ' + selectedMonthName); // Update the Periode text
-            }
+    // Function to adjust column widths based on content
+    function adjustColumnWidths() {
+        $('#att-records').find('tr').each(function () {
+            $(this).find('td').each(function (i) {
+                var currentWidth = $(this).width();
+                var maxWidth = 0;
+                $(this).closest('table').find('tr').each(function () {
+                    var cellWidth = $(this).find('td').eq(i).width();
+                    maxWidth = Math.max(maxWidth, cellWidth);
+                });
+                $(this).css('width', maxWidth + 'px');
+            });
         });
+    }
+
+    // Call the adjustColumnWidths function when the page loads
+    adjustColumnWidths();
+
+   $('#month').change(function () {
+        var selectedMonth = $(this).val();
+        var selectedMonthName = $('#month option:selected').text(); // Get the text of the selected option
+        if (selectedMonth) {
+            $('#periode').text('Periode ' + selectedMonthName); // Update the Periode text
+            adjustColumnWidths(); // Adjust column widths when month changes
+        }
+    });
 
         $('#eid, #month, #year').change(function () {
             var selectedUserId = $('#eid').val();
@@ -294,26 +378,58 @@ while ($row = $public_holidays_result->fetch_assoc()) {
             var ns = $('noscript').clone();
             ns.append(_c);
 
-            // Add signature area side by side
-            ns.append('<div style="display: flex; justify-content: space-between; padding-top:100px; margin-top: 15px;">' +
-                '<div>' +
-                '<label for="signature">Intern<br><br><br><br><br></label>' +
-                '___________________' +
-                '</div>' +
-                '<div>' +
-                '<label for="signature">Mentor<br><br><br><br><br></label>' +
-                '___________________' +
-                '</div>' +
-                '</div>');
+            // Create the new table element
+            var newTable = $('<br><br><table style="width:25%; border: 1px solid black;"></table>');
+
+            var totalweek = $('<tr></tr>');
+            totalweek.append('<th style="text-align: left;">Total Hari Kerja : <?php echo $work_day; ?></th>');
+
+            // Create the first row with cells for headings
+            var newRow1 = $('<tr></tr>');
+            newRow1.append('<th style="text-align: left;">Total Kehadiran : <?php echo $total_records; ?></th>');
+            
+            // Create the second row with sample data
+            var newRow2 = $('<tr></tr>');
+            newRow2.append('<td style="text-align: left;">Paraf Tim SDM : </td>');
+
+            // Append rows to the new table
+            newTable.append(totalweek);
+            newTable.append(newRow1);
+            newTable.append(newRow2);
+
+            // Append the new table to the document
+            ns.append(newTable);
+
+            // Create the table element
+            var table = $('<br><br><table style="width:100%; border: 1px solid black;"></table>');
+
+            // Create the first row with cells for Intern and Mentor
+            var row1 = $('<tr></tr>');
+            row1.append('<td style="text-align: center;">Intern<br><br><br>___________________</td>');
+            row1.append('<td style="text-align: center;">Mentor<br><br><br>___________________</td>');
+
+            // Create the second row with cells for signatures
+            var row2 = $('<tr></tr>');
+            row2.append('<td style="text-align: center; padding-top: 1px;"><?php echo $user_fullname ?></td>');
+            row2.append('<td style="text-align: center; padding-top: 1px;"></td>');
+
+            // Append rows to the table
+            table.append(row1);
+            table.append(row2);
+
+            // Append the table to the document
+            ns.append(table);
 
             var nw = window.open('', '_blank', 'width=900,height=600');
+            nw.document.write('<!DOCTYPE html><html><head><title>Print</title><link rel="stylesheet" type="text/css" href="print.css" media="print"></head><body>');
             nw.document.write(ns.html());
+            nw.document.write('</body></html>');
             nw.document.close();
             setTimeout(() => {
                 nw.print();
                 nw.close();
             }, 1000);
-
         });
+
     });
 </script>

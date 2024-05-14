@@ -18,7 +18,7 @@ while($row = $qry->fetch_assoc()){
 				$uqry = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where type = 2 order by concat(lastname,', ',firstname,' ',middlename) asc");
 				while($row = $uqry->fetch_assoc()):
 				?>
-				<option value="<?php echo $row['id'] ?>" <?php echo count($users) > 0 && in_array($row['id'],$users) ? "selected" : '' ?>><?php echo ucwords($row['name']) ?></option>
+				<option value="<?php echo $row['id'] ?>" <?php echo count($users) > 0 && in_array($row['id'],$users) ? "Dipilih" : '' ?>><?php echo ucwords($row['Nama']) ?></option>
 				<?php endwhile; ?>
 			</select>
 		</div>
@@ -45,7 +45,7 @@ while($row = $qry->fetch_assoc()){
 		    type: 'POST',
 			success:function(resp){
 				if(resp ==1){
-					alert_toast("Data successfully saved",'success')
+					alert_toast("Data berhasil disimpan",'success')
 					setTimeout(function(){
 						location.reload()
 					},1500)

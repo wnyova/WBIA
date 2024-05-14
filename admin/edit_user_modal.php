@@ -14,7 +14,7 @@ if (isset($_POST['id'])) {
     if ($row) {
         ?>
         <div class="modal-header">
-            <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+            <h5 class="modal-title" id="editUserModalLabel">Edit Pengguna</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -22,19 +22,19 @@ if (isset($_POST['id'])) {
         <div class="modal-body">
             <form id="edit_user_form">
                 <div class="form-group">
-                    <label for="edit_firstname">First Name</label>
+                    <label for="edit_firstname">Nama Depan</label>
                     <input type="text" class="form-control" id="edit_firstname" name="edit_firstname" value="<?php echo $row['firstname']; ?>">
                 </div>
                 <div class="form-group">
-                    <label for="edit_middlename">Middle Name</label>
+                    <label for="edit_middlename">Nama Tengah</label>
                     <input type="text" class="form-control" id="edit_middlename" name="edit_middlename" value="<?php echo $row['middlename']; ?>">
                 </div>
                 <div class="form-group">
-                    <label for="edit_lastname">Last Name</label>
+                    <label for="edit_lastname">Nama Belakang</label>
                     <input type="text" class="form-control" id="edit_lastname" name="edit_lastname" value="<?php echo $row['lastname']; ?>">
                 </div>
                 <div class="form-group">
-                    <label for="edit_contact">Contact #</label>
+                    <label for="edit_contact">Nomor Kontak</label>
                     <input type="text" class="form-control" id="edit_contact" name="edit_contact" value="<?php echo $row['contact']; ?>">
                 </div>
                 <!-- Hide the role field -->
@@ -49,8 +49,8 @@ if (isset($_POST['id'])) {
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="save_user_changes(<?php echo $user_id; ?>)">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary" onclick="save_user_changes(<?php echo $user_id; ?>)">Simpan Perubahan</button>
         </div>
         <?php
     } else {

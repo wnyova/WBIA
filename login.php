@@ -79,8 +79,8 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-          <center><a href="/intern_plnsc/admin">Login as Admin</a></center>
+          <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+          <center><a href="/intern_plnsc/admin">Masuk sebagai Admin</a></center>
         </form>
       </div>
       <!-- /.login-card-body -->

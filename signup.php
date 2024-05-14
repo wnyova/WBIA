@@ -4,7 +4,7 @@
 <body class="hold-transition register-page">
 <div class=" col-lg-7">
   <div class="register-logo">
-    <a href="#"><b>Event Registration and Attendance System</b></a>
+    <a href="#"><b>Pendaftaran Acara dan Sistem Kehadiran</b></a>
   </div>
 <?php session_start() ?>
 <?php include('admin/db_connect.php'); ?>
@@ -79,7 +79,7 @@ if(isset($_SESSION['login_id'])){
 			          </div>
 			        </div>
 			        <?php if(isset($id)): ?>
-						<small><i>Leave this field blank if you dont want to change your password.</i></small>
+						<small><i>Biarkan kolom ini kosong jika Anda tidak ingin mengubah kata sandi Anda.</i></small>
 					<?php endif; ?>
 			        <div class="input-group mb-3">
 			          <input type="password" class="form-control" name="cpass" <?php echo isset($id) ? '' : "required" ?> placeholder="Retype password">
@@ -101,7 +101,7 @@ if(isset($_SESSION['login_id'])){
             <div class="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" value="agree">
               <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
+               Saya setuju untuk <a href="#">ketentuan</a>
               </label>
             </div>
 			<?php endif; ?>
@@ -116,7 +116,7 @@ if(isset($_SESSION['login_id'])){
       </form>
 
 	        <?php if(!isset($id)): ?>
-      <a href="login.php" class="text-center">I have account already</a>
+      <a href="login.php" class="text-center">Saya sudah mempunyai akun</a>
 			<?php endif; ?>
     </div>
     <!-- /.form-box -->

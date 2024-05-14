@@ -30,11 +30,11 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="account_settings" style="left: -2.5em;">
             <a class="dropdown-item" href="index.php?page=absensi"><i class="far fa-clock" aria-hidden="true"></i> Absensi</a>
-            <a class="dropdown-item" href="index.php?page=reports" id="manage_my_account"><i class="fa fa-book"></i> Reports</a>
-            <a class="dropdown-item" href="index.php?page=permit" id="manage_my_account"><i  class="fa fa-exclamation"></i>&nbsp&nbspPermit</a>
-            <a class="dropdown-item" href="index.php?page=permit_status" id="manage_my_account"><i class="fa fa-spinner"></i> Permit Status</a>
+            <a class="dropdown-item" href="index.php?page=reports" id="manage_my_account"><i class="fa fa-book"></i> Laporan</a>
+            <a class="dropdown-item" href="index.php?page=permit" id="manage_my_account"><i  class="fa fa-exclamation"></i>&nbsp&nbspIzin</a>
+            <a class="dropdown-item" href="index.php?page=permit_status" id="manage_my_account"><i class="fa fa-spinner"></i> Status Izin</a>
             <!-- <a class="dropdown-item" href="signup.php" id="manage_my_account"><i class="fa fa-cog"></i> Manage Account</a> -->
-            <a class="dropdown-item" href="admin/ajax.php?action=logout2"><i class="fa fa-power-off"></i> Logout</a>
+            <a class="dropdown-item" href="admin/ajax.php?action=logout2"><i class="fa fa-power-off"></i> Keluar</a>
           </div>
         </li>
       </ul>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pending Requests</title>
+    <title>Pengajuan Tertunda</title>
     <style>
         table {
             border-collapse: collapse;
@@ -30,15 +30,16 @@
     </style>
 </head>
 <body>
-    <h2>Pending Requests</h2>
+    <h2>Pengajuan Tertunda</h2>
     <table>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Request Date</th>
-            <th>Request Type</th>
-            <th>Request Comment</th>
-            <th>Action</th>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Tanggal Pengajuan</th>
+            <th>Tipe Pengajuan</th>
+            <th>Komentar Pengajuan/th>
+            <th>Bukti</th>
+            <th>Tindakan</th>
         </tr>
         <?php
         // Include db_connect.php file to establish database connection
@@ -46,7 +47,7 @@
 
         // Fetch pending requests from the database with user details
         $sql = "SELECT izin_sakit_requests.id, CONCAT(users.firstname, ' ', users.middlename, ' ', users.lastname) AS user_name, 
-                izin_sakit_requests.request_date, izin_sakit_requests.izin_sakit_type, izin_sakit_requests.request_comment 
+                izin_sakit_requests.request_date, izin_sakit_requests.izin_sakit_type, izin_sakit_requests.request_comment, izin_sakit_requests.request_proof 
                 FROM izin_sakit_requests 
                 INNER JOIN users ON izin_sakit_requests.user_id = users.id
                 WHERE izin_sakit_requests.request_status = 'Pending'";
@@ -61,11 +62,12 @@
                 echo "<td>".$row["request_date"]."</td>";
                 echo "<td>".$row["izin_sakit_type"]."</td>";
                 echo "<td>".$row["request_comment"]."</td>";
-                echo "<td><button class='approve-btn' onclick='approveRequest(".$row["id"].")'>Approve</button></td>";
+                echo "<td><a href='".$row["request_proof"]."' target='_blank'>Klik Disini</a></td>";
+                echo "<td><button class='approve-btn' onclick='approveRequest(".$row["id"].")'>Disetujui</button></td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='6'>No pending requests</td></tr>";
+            echo "<tr><td colspan='7'>No pending requests</td></tr>";
         }
         ?>
     </table>

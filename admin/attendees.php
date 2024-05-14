@@ -19,11 +19,11 @@
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
-						<th>Event</th>
-						<th>Attendee's Name</th>
+						<th>Acara</th>
+						<th>Nama Peserta</th>
 						<th>Email</th>
-						<th>Gender</th>
-						<th>Action</th>
+						<th>Jenis Kelamin</th>
+						<th>Tindakan</th>
 					</tr>
 				</thead>
 				<tbody>

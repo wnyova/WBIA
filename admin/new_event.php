@@ -9,13 +9,13 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="" class="control-label">Event</label>
+							<label for="" class="control-label">Acara</label>
 							<input type="text" class="form-control form-control-sm" name="event" value="<?php echo isset($event) ? $event : '' ?>">
 						</div>
 					</div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="" class="control-label">Event Schedule</label>
+              <label for="" class="control-label">Jadwal Acara</label>
               <input type="text" class="form-control form-control-sm datetimepicker" autocomplete="off" name="event_datetime" value="<?php echo isset($event_datetime) ? date("Y/m/d H:i",strtotime($event_datetime)) : '' ?>">
             </div>
           </div>
@@ -23,7 +23,7 @@
         <div class="row">
            <div class="col-md-6">
             <div class="form-group">
-              <label for="" class="control-label">Venue</label>
+              <label for="" class="control-label">Lokasi</label>
               <input type="text" class="form-control form-control-sm" name="venue" value="<?php echo isset($venue) ? $venue : '' ?>">
             </div>
           </div>
@@ -31,7 +31,7 @@
 				<div class="row">
 					<div class="col-md-10">
 						<div class="form-group">
-							<label for="" class="control-label">Description</label>
+							<label for="" class="control-label">Deskripsi</label>
 							<textarea name="description" id="" cols="30" rows="10" class="summernote form-control">
 								<?php echo isset($description) ? $description : '' ?>
 							</textarea>
@@ -42,7 +42,7 @@
     	</div>
     	<div class="card-footer border-top border-info">
     		<div class="d-flex w-100 justify-content-center align-items-center">
-    			<button class="btn btn-flat  bg-gradient-primary mx-2" form="manage-event">Save</button>
+    			<button class="btn btn-flat  bg-gradient-primary mx-2" form="manage-event">Simpan</button>
     			<button class="btn btn-flat bg-gradient-secondary mx-2" type="button" onclick="location.href='index.php?page=event_list'">Cancel</button>
     		</div>
     	</div>

@@ -64,7 +64,7 @@
     <div class="container">
         <img src="checklist.png" alt="">
         <h1>Absensi Sukses</h1>
-        <button class="back-button" onclick="goBack()">Back to Previous Page</button>
+        <button class="back-button" onclick="goBack()">Kembali ke halaman sebelumnya</button>
     </div>
 
     <script>

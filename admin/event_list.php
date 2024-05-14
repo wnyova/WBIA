@@ -19,11 +19,11 @@
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
-						<th>Schedule</th>
-						<th>Event</th>
-						<th>Venue</th>
+						<th>Jadwal</th>
+						<th>Acara</th>
+						<th>Lokasi</th>
 						<th>Status</th>
-						<th>Action</th>
+						<th>Tindakan</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,12 +50,12 @@
 							<?php elseif($row['status'] == 1): ?>
 								<input type="checkbox" name="status_chk" id="" checked data-bootstrap-switch data-toggle="toggle" data-on="Open" data-off="Close" class="switch-toggle status_chk" data-size="xs" data-offstyle="secondary" data-width="5rem" data-id='<?php echo $row['id'] ?>'>
 								<br>
-								<small><i>Click the swith to update.</i></small>
+								<small><i>Klik tombol untuk memperbarui.</i></small>
 								
 							<?php elseif($row['status'] == 2): ?>
 								<input type="checkbox" name="status_chk" id="" data-bootstrap-switch data-toggle="toggle" data-on="Open" data-off="Close" class="switch-toggle status_chk" data-size="xs" data-offstyle="secondary" data-width="5rem" data-id='<?php echo $row['id'] ?>'>
 								<br>
-								<small><i>Click the swith to update.</i></small>
+								<small><i>Klik tombol untuk memperbarui.</i></small>
 							<?php endif; ?>
 							</div>
 						</td>
@@ -108,10 +108,10 @@
 			},
 			success:function(resp){
 				if(resp == 1){
-					alert_toast("Event status successfully updated.",'success')
+					alert_toast("Status acara berhasil diperbarui.",'Sukses')
 					end_load()
 				}else{
-					alert_toast("Something went wrong while updating the event's status.",'error')
+					alert_toast("Terjadi error saat memperbarui status acara.",'error')
 					$('#status_chk').attr('data-state-stats','error').bootstrapToggle('toggle')
 					end_load()
 				}
@@ -127,7 +127,7 @@
 			data:{id:$id},
 			success:function(resp){
 				if(resp==1){
-					alert_toast("Data successfully deleted",'success')
+					alert_toast("Data berhasil dihapus",'success')
 					setTimeout(function(){
 						location.reload()
 					},1500)

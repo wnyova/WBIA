@@ -13,15 +13,16 @@ if(isset($_SESSION['login_id'])){
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if all required fields are set
-        if (isset($_POST['izin_sakit_type']) && isset($_POST['request_date']) && isset($_POST['request_comment'])) {
+        if (isset($_POST['izin_sakit_type']) && isset($_POST['request_date']) && isset($_POST['request_comment']) && isset($_POST['request_proof'])) {
             // Sanitize and validate input data
             $izin_sakit_type = $_POST['izin_sakit_type'];
             $request_date = $_POST['request_date'];
             $request_comment = $_POST['request_comment'];
+            $request_proof = $_POST['request_proof']; // Assuming request_proof is a string containing a URL
 
             // Insert the Izin/Sakit request into the database
-            $insert_query = $conn->prepare("INSERT INTO izin_sakit_requests (user_id, izin_sakit_type, request_date, request_comment) VALUES (?, ?, ?, ?)");
-            $insert_query->bind_param("isss", $user_id, $izin_sakit_type, $request_date, $request_comment);
+            $insert_query = $conn->prepare("INSERT INTO izin_sakit_requests (user_id, izin_sakit_type, request_date, request_comment, request_proof) VALUES (?, ?, ?, ?, ?)");
+            $insert_query->bind_param("issss", $user_id, $izin_sakit_type, $request_date, $request_comment, $request_proof);
 
             if ($insert_query->execute()) {
                 // Request submitted successfully

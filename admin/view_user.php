@@ -24,11 +24,11 @@ foreach($qry as $k => $v){
       <div class="card-footer">
         <div class="container-fluid">
         	<dl>
-        		<dt>Address</dt>
+        		<dt>Alamat</dt>
         		<dd><?php echo $address ?></dd>
         	</dl>
         	<dl>
-        		<dt>User Type</dt>
+        		<dt>Tipe User</dt>
         		<dd><?php echo $type_arr[$type] ?></dd>
         	</dl>
         </div>

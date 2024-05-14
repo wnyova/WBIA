@@ -38,14 +38,14 @@ $disabled_logout_attribute = $has_logout_today ? 'disabled' : '';
                 <div class="card card-widget widget-user">
                   <div class="widget-user-header bg-info">
                     <h3 class="widget-user-username">
-                      <h4>Internship Attendance</h4>
+                      <h4>Absensi Magang</h4>
                     </h3>
                     <h5 class="widget-user-desc" id="current_datetime"></h5>
                   </div>
                   <div class="card-footer">
                     <div class="d-block py-1 px-1 w-100">
                       <p class="truncate">
-                      <h4 style="justify-content:center;text-align:center;">Spirit of Work Insan PLN Suku Cadang</h4>
+                      <h4 style="justify-content:center;text-align:center;">Semangat Bekerja Insan PLN Suku Cadang</h4>
                       </p>
                     </div>
                     <div class="mt-3">
@@ -60,11 +60,11 @@ $disabled_logout_attribute = $has_logout_today ? 'disabled' : '';
                           <div class="col-md-6">
                             <!-- Tombol Masuk -->
                             <!-- <button type="button" class="btn btn-primary btn-block" id="masukButton">Masuk</button> -->
-                            <button type="button" class="btn btn-primary btn-block" id="masukButton" <?php echo $disabled_attribute; ?>>Clock In</button>
+                            <button type="button" class="btn btn-primary btn-block" id="masukButton" <?php echo $disabled_attribute; ?>>Masuk</button>
                           </div>
                           <div class="col-md-6">
                             <!-- Tombol Pulang -->
-                            <button type="button" class="btn btn-danger btn-block" id="pulangButton" <?php echo $disabled_logout_attribute; ?>>Clock Out</button>
+                            <button type="button" class="btn btn-danger btn-block" id="pulangButton" <?php echo $disabled_logout_attribute; ?>>Pulang</button>
                           </div>
                         </div>
                       </form>

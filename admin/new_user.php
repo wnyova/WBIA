@@ -92,29 +92,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container">
-        <h2>Add New User</h2>
+        <h2>Tambahkan Pengguna Baru</h2>
         <form action="" id="manage_user" enctype="multipart/form-data" method="POST">
             <div class="row">
                 <div class="col-md-6">
                     <!-- First Column -->
                     <div class="form-group">
-                        <label for="firstname">First Name</label>
+                        <label for="firstname">Nama Depan</label>
                         <input type="text" name="firstname" id="firstname" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="middlename">Middle Name</label>
+                        <label for="middlename">Nama Tengah</label>
                         <input type="text" name="middlename" id="middlename" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="lastname">Last Name</label>
+                        <label for="lastname">Nama Belakang</label>
                         <input type="text" name="lastname" id="lastname" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="nama_kampus">Campus Name</label>
+                        <label for="nama_kampus">Nama Kampus</label>
                         <input type="text" name="nama_kampus" id="nama_kampus" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="divisi">Division</label>
+                        <label for="divisi">Divisi</label>
                         <select name="divisi" id="divisi" class="form-control" required>
                             <option value="Keuangan Akuntansi dan SDM">Keuangan Akuntansi dan SDM</option>
                             <option value="Perencanaan dan Pengembangan Bisnis">Perencanaan dan Pengembangan Bisnis</option>
@@ -127,14 +127,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="contact">Contact Number</label>
+                        <label for="contact">Nomor Kontak</label>
                         <input type="text" name="contact" id="contact" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <!-- Second Column -->
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Alamat</label>
                         <textarea name="address" id="address" cols="30" rows="4" class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="file" name="avatar" id="avatar" class="form-control-file" accept="image/*">
                     </div>
                     <div class="form-group">
-                        <label for="type">User Role</label>
+                        <label for="type">Role Pengguna</label>
                         <select name="type" id="type" class="form-control">
                             <option value="2">Registrar</option>
                             <option value="1">Admin</option>
@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <!-- Submit Button -->
             <div class="form-group mt-4">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>

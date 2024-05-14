@@ -14,19 +14,19 @@ foreach($qry as $k =>$v){
 				<div class="card-body">
 					<div class="">
 						<dl class="callout callout-info">
-							<dt>Event</dt>
+							<dt>Acara</dt>
 							<dd><?php echo ucwords($event) ?></dd>
 						</dl>
 						<dl class="callout callout-info">
-							<dt>Schedule</dt>
+							<dt>Jadwal</dt>
 							<dd><?php echo date("M d, Y h:i A",strtotime($event_datetime)) ?></dd>
 						</dl>
 						<dl class="callout callout-info">
-							<dt>Venue</dt>
+							<dt>Lokasi</dt>
 							<dd><?php echo ucwords($venue) ?></dd>
 						</dl>
 						<dl class="callout callout-info">
-							<dt>Description</dt>
+							<dt>Deskripsi</dt>
 							<dd><?php echo html_entity_decode($description) ?></dd>
 						</dl>
 					</div>

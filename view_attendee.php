@@ -19,13 +19,13 @@ foreach($qry as $k => $v){
       <div class="card-footer">
         <div class="container-fluid">
         	<dl>
-            <dt>Attendee of</dt>
+            <dt>Peserta dari</dt>
             <dd><?php echo ucwords($event) ?></dd>
-            <dt>Gender</dt>
+            <dt>Jenis Kelamin</dt>
             <dd><?php echo $gender ?></dd>
-            <dt>Contact No.</dt>
+            <dt>Nomor Kontak</dt>
             <dd><?php echo $contact ?></dd>
-        		<dt>Address</dt>
+        		<dt>Alamat</dt>
         		<dd><?php echo $address ?></dd>
         	</dl>
         </div>
@@ -33,7 +33,7 @@ foreach($qry as $k => $v){
 	</div>
 </div>
 <div class="modal-footer display p-0 m-0">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 </div>
 <style>
 	#uni_modal .modal-footer{

@@ -1,0 +1,21 @@
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important; /* For Chrome and Safari */
+        color-adjust: exact !important; /* For Firefox */
+    }
+
+    .weekend {
+        background-color: #a7b1e7 !important; /* Override background color for weekends */
+    }
+
+    .filled-row {
+        background-color: #ffff99; /* Yellow background color for filled rows */
+    }
+    .datadiri {
+        padding-top: 2px 0;
+        font-family: Arial, Helvetica, sans-serif;
+        
+        
+    }
+
+}

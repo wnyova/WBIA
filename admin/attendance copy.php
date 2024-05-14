@@ -16,10 +16,10 @@ if (!empty($eid)) {
 <div class="col-lg-12">
     <div class="card card-outline card-info">
         <div class="card-header">
-            <b>Attendance</b>
+            <b>Absen</b>
             <div class="card-tools">
                 <button class="btn btn-success btn-flat" type="button" id="print_record">
-                    <i class="fa fa-print"></i> Print</button>
+                    <i class="fa fa-print"></i> Cetak</button>
             </div>
         </div>
         <div class="card-body">
@@ -44,15 +44,15 @@ if (!empty($eid)) {
             </div>
             <hr>
             <?php if (empty($eid)): ?>
-                <center> Please select event First.</center>
+                <center> Silahkan Pilih Nama Terlebuh Dahulu.</center>
             <?php else: ?>
                 <table class="table table-condensed table-bordered table-hover" id="att-records">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="">Name</th>
-                            <th class="">Login Time</th>
-                            <th class="">Logout Time</th>
+                            <th class="">Nama</th>
+                            <th class="">Jam Masuk</th>
+                            <th class="">Jam Pulang</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,10 +106,10 @@ if (!empty($eid)) {
         }
     </style>
     <div>
-        <p><b>Event:
+        <p><b>Acara:
                 <?php echo isset($event) ? ucwords($event) : '' ?>
             </b></p>
-        <p><b>Venue:
+        <p><b>Lokasi:
                 <?php echo isset($venue) ? ucwords($venue) : '' ?>
             </b></p>
     </div>
