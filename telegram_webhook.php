@@ -1,6 +1,6 @@
 <?php
 // Define your bot token
-define('BOT_TOKEN', '7044008485:AAFumsBebU5m9GscuMuxC27cdBpWqTrLH7Q');
+define('BOT_TOKEN', '');
 
 // Define the base URL of your Telegram API
 define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
